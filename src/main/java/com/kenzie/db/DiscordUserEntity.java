@@ -9,7 +9,6 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.UUID;
@@ -17,7 +16,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "discord_friend")
 @AllArgsConstructor
-@NoArgsConstructor
 @Setter
 @Getter
 @Builder
@@ -38,4 +36,8 @@ public class DiscordUserEntity {
     @Column(name = "time_zone", nullable = false)
     private String timeZone;
     // Constructors, getters, and setters
+
+    protected DiscordUserEntity() {
+
+    }
 }
