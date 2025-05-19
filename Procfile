@@ -1,1 +1,1 @@
-web: java -jar target/kenzie-bot-java-1.0-SNAPSHOT.jar
+web: java -Dserver.port=$PORT -jar target/kenzie-bot-java-1.0-SNAPSHOT.jar
