@@ -1,1 +1,1 @@
-web: java -jar target/kenzie-bot-application.jar
+web: java -jar target/kenzie-bot-java-1.0-SNAPSHOT.jar
