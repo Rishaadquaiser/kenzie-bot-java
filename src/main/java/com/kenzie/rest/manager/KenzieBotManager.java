@@ -1,7 +1,7 @@
 package com.kenzie.rest.manager;
 
+import com.kenzie.db.DiscordUserEntity;
 import com.kenzie.rest.model.DiscordUserDTO;
-import com.kenzie.rest.model.DiscordUserMapper;
 import com.kenzie.rest.repository.FriendDataRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +15,6 @@ import java.util.List;
 public class KenzieBotManager {
 
     private final FriendDataRepositoryImpl friendDataRepository;
-    private final DiscordUserMapper discordUserMapper;
 
     public void addFriend(String name, Long discordId, String medsTime, String timeZone) {
         // Logic to add a friend
@@ -24,7 +23,14 @@ public class KenzieBotManager {
 
     public List<DiscordUserDTO> getFriends() {
         // Logic to retrieve friends
-        return friendDataRepository.getFriends()
-                .stream().map(discordUserMapper::map).toList();
+        List<DiscordUserEntity> friends = friendDataRepository.getFriends();
+        return mapToDTOList(friends);
+
+    }
+
+    private List<DiscordUserDTO> mapToDTOList(List<DiscordUserEntity> friends) {
+        return friends.stream()
+                .map(friend -> new DiscordUserDTO(friend.getName(), friend.getDiscordId(), friend.getMedsTime(), friend.getTimeZone()))
+                .toList();
     }
 }
