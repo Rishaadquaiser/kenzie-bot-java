@@ -25,6 +25,6 @@ public class KenzieBotManager {
     public List<DiscordUserDTO> getFriends() {
         // Logic to retrieve friends
         return friendDataRepository.getFriends()
-                .stream().map(discordUserMapper::toDiscordUserDTO).toList();
+                .stream().map(discordUserMapper::map).toList();
     }
 }
