@@ -24,7 +24,7 @@ public class DatabaseInitialization implements InitializingBean {
 
         if (friendDataRepository.count() == 0) {
             friendDataRepository.addFriend("Kenzie", 662047058760433666L, "10:30 PM", "Canada/Eastern");
-            friendDataRepository.addFriend("Rishaad", 614239301198413824L, "07:53 PM", "Canada/Eastern");
+            friendDataRepository.addFriend("Rishaad", 614239301198413824L, "09:00 AM", "Canada/Eastern");
             friendDataRepository.addFriend("Melody", 615020963402219560L, "07:00 PM", "Canada/Eastern");
         }
     }
