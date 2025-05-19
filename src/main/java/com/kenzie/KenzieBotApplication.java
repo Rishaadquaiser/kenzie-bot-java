@@ -33,6 +33,7 @@ public class KenzieBotApplication extends ListenerAdapter {
     private final KenzieBotManager kenzieBotManager;
 
     public static void main(String[] args) {
+//        System.setProperty("spring.profiles.active", "LOCAL");
         SpringApplication.run(KenzieBotApplication.class, args);
 
         JDABuilder.createDefault(TOKEN).build();
