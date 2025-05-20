@@ -2,11 +2,13 @@ package com.kenzie;
 
 import com.kenzie.rest.manager.KenzieBotManager;
 import com.kenzie.rest.model.DiscordUserDTO;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -28,16 +30,28 @@ import java.util.Locale;
 @RequiredArgsConstructor
 public class KenzieBotApplication extends ListenerAdapter {
 
-    private static final String TOKEN = "MTM2NjA0NTkyNjg3NTA3NDYxMg.GoUxOE.SV1cNAsyZcsznALrF1S-kAZNqRD-kNk0b71BGs";
+    @Value("${kenzie.bot.token}")
+    private String token;
 
     private final KenzieBotManager kenzieBotManager;
 
-    public static void main(String[] args) {
-//        System.setProperty("spring.profiles.active", "LOCAL");
-        SpringApplication.run(KenzieBotApplication.class, args);
-
-        JDABuilder.createDefault(TOKEN).build();
+    @PostConstruct
+    public void init() {
+        // Initialize the bot
+        JDABuilder builder = JDABuilder.createDefault(token);
+        builder.addEventListeners(this);
+        try {
+            builder.build();
+        } catch (Exception e) {
+            log.error("Failed to initialize Kenzie Bot: {}", e.getMessage());
+        }
     }
+
+    public static void main(String[] args) {
+        System.setProperty("spring.profiles.active", "LOCAL");
+        SpringApplication.run(KenzieBotApplication.class, args);
+    }
+
 
     @Scheduled(fixedRate = 60000) // Run every minute
     public void sendReminders() {
@@ -56,7 +70,7 @@ public class KenzieBotApplication extends ListenerAdapter {
 
             if (currentTime.equals(friendMedsTime)) {
                 try {
-                    User user = JDABuilder.createDefault(TOKEN).build().retrieveUserById(friend.getDiscordId()).complete();
+                    User user = JDABuilder.createDefault(token).build().retrieveUserById(friend.getDiscordId()).complete();
                     if (user != null) {
                         user.openPrivateChannel().queue(channel -> {
                             String message = String.format("Hello, %s, Kenzie Bot here! It is now %s, so remember " +
