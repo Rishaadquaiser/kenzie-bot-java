@@ -1,0 +1,1 @@
+I made a discord bot that reminds a friend of mine, Kenzie, to take her meds at 11 AM, thought this would be a pretty cool idea, and had a lot of fun working on this! I can probably do a lot more with this, so if i come up with ideas for an easier user experience, i'll implement them into the bot on the fly
