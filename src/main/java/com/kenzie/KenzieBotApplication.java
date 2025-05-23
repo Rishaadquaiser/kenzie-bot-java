@@ -37,7 +37,6 @@ public class KenzieBotApplication extends ListenerAdapter {
 
     @PostConstruct
     public void init() {
-        // Initialize the bot
         JDABuilder builder = JDABuilder.createDefault(token);
         builder.addEventListeners(this);
         try {
