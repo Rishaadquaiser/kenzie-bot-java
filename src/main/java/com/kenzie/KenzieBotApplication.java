@@ -47,7 +47,7 @@ public class KenzieBotApplication extends ListenerAdapter {
     }
 
     public static void main(String[] args) {
-        System.setProperty("spring.profiles.active", "LOCAL");
+        //System.setProperty("spring.profiles.active", "LOCAL");
         SpringApplication.run(KenzieBotApplication.class, args);
     }
 
