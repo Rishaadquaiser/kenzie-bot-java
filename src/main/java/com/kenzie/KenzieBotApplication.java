@@ -2,7 +2,6 @@ package com.kenzie;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -15,7 +14,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 @Slf4j
 @RequiredArgsConstructor
-public class KenzieBotApplication extends ListenerAdapter {
+public class KenzieBotApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(KenzieBotApplication.class, args);

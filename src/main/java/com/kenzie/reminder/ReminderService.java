@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -21,7 +22,7 @@ import java.util.Locale;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ReminderService {
+public class ReminderService extends ListenerAdapter {
     private final KenzieBotManager kenzieBotManager;
 
     @Value("${kenzie.bot.token}")
@@ -36,11 +37,6 @@ public class ReminderService {
         } catch (Exception e) {
             log.error("Failed to initialize Kenzie Bot: {}", e.getMessage());
         }
-    }
-
-    @Scheduled(fixedRate = 5000) // Runs every 5 seconds
-    public void testTask() {
-        System.out.println("Scheduled task is running on the worker dyno!");
     }
 
     @Scheduled(fixedRate = 60000)
