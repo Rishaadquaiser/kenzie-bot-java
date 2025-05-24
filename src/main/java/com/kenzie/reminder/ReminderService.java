@@ -23,7 +23,7 @@ import java.util.Locale;
 @RequiredArgsConstructor
 public class ReminderService {
     private final KenzieBotManager kenzieBotManager;
-    
+
     @Value("${kenzie.bot.token}")
     private String token;
 
@@ -36,6 +36,11 @@ public class ReminderService {
         } catch (Exception e) {
             log.error("Failed to initialize Kenzie Bot: {}", e.getMessage());
         }
+    }
+
+    @Scheduled(fixedRate = 5000) // Runs every 5 seconds
+    public void testTask() {
+        System.out.println("Scheduled task is running on the worker dyno!");
     }
 
     @Scheduled(fixedRate = 60000)
