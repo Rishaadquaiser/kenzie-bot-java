@@ -32,4 +32,15 @@ public class FriendDataRepositoryImpl implements FriendDataRepository {
         return discordUserDAO.count();
     }
 
+    public DiscordUserEntity updateFriend(String name, Long discordId, String medsTime, String timeZone) {
+        DiscordUserEntity discordUser = DiscordUserEntity.builder()
+                .name(name)
+                .discordId(discordId)
+                .medsTime(medsTime)
+                .timeZone(timeZone)
+                .build();
+        // Implementation for updating a friend in the database
+        return discordUserDAO.save(discordUser);
+    }
+
 }

@@ -24,13 +24,19 @@ public class KenzieBotManager {
     public List<DiscordUserDTO> getFriends() {
         // Logic to retrieve friends
         List<DiscordUserEntity> friends = friendDataRepository.getFriends();
-        return mapToDTOList(friends);
+        return friends.stream()
+                .map(this::mapToDTO)
+                .toList();
 
     }
 
-    private List<DiscordUserDTO> mapToDTOList(List<DiscordUserEntity> friends) {
-        return friends.stream()
-                .map(friend -> new DiscordUserDTO(friend.getName(), friend.getDiscordId(), friend.getMedsTime(), friend.getTimeZone()))
-                .toList();
+    public DiscordUserDTO updateFriend(Long discordId, String name, String medsTime, String timeZone) {
+        // Logic to update a friend
+        DiscordUserEntity updatedUser = friendDataRepository.updateFriend(name, discordId, medsTime, timeZone);
+        return mapToDTO(updatedUser);
+    }
+
+    private DiscordUserDTO mapToDTO(DiscordUserEntity friend) {
+        return new DiscordUserDTO(friend.getName(), friend.getDiscordId(), friend.getMedsTime(), friend.getTimeZone());
     }
 }
