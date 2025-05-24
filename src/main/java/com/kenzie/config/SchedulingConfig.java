@@ -9,7 +9,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class SchedulingConfig {
 
-    @Value("${SCHEDULING_ENABLED")
+    @Value("${SCHEDULING_ENABLED}:false")
     private boolean schedulingEnabled;
 
     @Bean
