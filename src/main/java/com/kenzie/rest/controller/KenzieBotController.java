@@ -47,6 +47,10 @@ public class KenzieBotController {
                                                   @RequestParam(required = false) String medsTime,
                                                   @RequestParam(required = false) String timeZone) {
         // Logic to update a contact
+        if (name == null && medsTime == null && timeZone == null) {
+            throw new IllegalArgumentException(
+                    "At least one field must be provided for updating friend data.");
+        }
         log.info("Updating {}'s information, Discord ID: {}, medsTime: {}, timeZone: {}",
                 name, discordId, medsTime, timeZone);
         return kenzieBotManager.updateFriend(discordId, name, medsTime, timeZone);
