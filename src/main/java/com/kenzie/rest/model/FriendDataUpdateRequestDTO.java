@@ -1,18 +1,14 @@
 package com.kenzie.rest.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.util.UUID;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
-public class DiscordUserDTO {
-    private UUID id;
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class FriendDataUpdateRequestDTO {
     private String name;
-    private Long discordId;
     private String medsTime;
     private String timeZone;
 }

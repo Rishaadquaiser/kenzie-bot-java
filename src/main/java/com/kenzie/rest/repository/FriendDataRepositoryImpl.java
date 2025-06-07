@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 @RequiredArgsConstructor
@@ -32,15 +33,21 @@ public class FriendDataRepositoryImpl implements FriendDataRepository {
         return discordUserDAO.count();
     }
 
-    public DiscordUserEntity updateFriend(String name, Long discordId, String medsTime, String timeZone) {
-        DiscordUserEntity discordUser = DiscordUserEntity.builder()
-                .name(name)
-                .discordId(discordId)
-                .medsTime(medsTime)
-                .timeZone(timeZone)
-                .build();
-        // Implementation for updating a friend in the database
-        return discordUserDAO.save(discordUser);
+    public DiscordUserEntity updateFriend(UUID uuid, String name, String medsTime, String timeZone) {
+        DiscordUserEntity existingUser = discordUserDAO.findById(uuid)
+                .orElseThrow(() -> new IllegalArgumentException("User with ID " + uuid + " not found"));
+
+        if (name != null) {
+            existingUser.setName(name);
+        }
+        if (medsTime != null) {
+            existingUser.setMedsTime(medsTime);
+        }
+        if (timeZone != null) {
+            existingUser.setTimeZone(timeZone);
+        }
+        
+        return discordUserDAO.save(existingUser);
     }
 
 }

@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -30,13 +31,13 @@ public class KenzieBotManager {
 
     }
 
-    public DiscordUserDTO updateFriend(Long discordId, String name, String medsTime, String timeZone) {
+    public DiscordUserDTO updateFriend(UUID id, String name, String medsTime, String timeZone) {
         // Logic to update a friend
-        DiscordUserEntity updatedUser = friendDataRepository.updateFriend(name, discordId, medsTime, timeZone);
+        DiscordUserEntity updatedUser = friendDataRepository.updateFriend(id, name, medsTime, timeZone);
         return mapToDTO(updatedUser);
     }
 
     private DiscordUserDTO mapToDTO(DiscordUserEntity friend) {
-        return new DiscordUserDTO(friend.getName(), friend.getDiscordId(), friend.getMedsTime(), friend.getTimeZone());
+        return new DiscordUserDTO(friend.getId(), friend.getName(), friend.getDiscordId(), friend.getMedsTime(), friend.getTimeZone());
     }
 }
