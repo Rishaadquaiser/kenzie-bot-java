@@ -2,8 +2,11 @@ package com.kenzie.error;
 
 import com.kenzie.error.exception.ErrorDTO;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @Slf4j
 @RestControllerAdvice
@@ -18,12 +21,13 @@ public class RestErrorHandler {
     public static final String RESOURCE_NOT_FOUND = "Resource not found";
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public ErrorDTO handleIllegalArgumentException(IllegalArgumentException e) {
+    public ResponseEntity<ErrorDTO> handleIllegalArgumentException(IllegalArgumentException e) {
         log.error("An error occurred: {}", e.getMessage(), e);
-        return ErrorDTO.builder()
+        ErrorDTO err = ErrorDTO.builder()
                 .summary(INVALID_REQUEST)
                 .description(e.getMessage())
-                .statusCode("400")
+                .statusCode(BAD_REQUEST)
                 .build();
+        return new ResponseEntity<>(err, BAD_REQUEST);
     }
 }
